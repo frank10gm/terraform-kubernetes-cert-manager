@@ -15,6 +15,7 @@ resource "helm_release" "cert_manager" {
   name       = "cert-manager"
   namespace  = var.create_namespace ? kubernetes_namespace.cert_manager[0].id : var.namespace_name
   version    = var.chart_version
+  timeout    = 1500
 
   create_namespace = false
 
