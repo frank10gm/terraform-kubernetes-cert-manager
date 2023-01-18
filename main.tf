@@ -15,13 +15,18 @@ resource "helm_release" "cert_manager" {
   name       = "cert-manager"
   namespace  = var.create_namespace ? kubernetes_namespace.cert_manager[0].id : var.namespace_name
   version    = var.chart_version
-  timeout    = 1500
+  timeout    = 600
 
   create_namespace = false
 
   set {
     name  = "installCRDs"
     value = "true"
+  }
+
+  set {
+    name  = "startupapicheck.timeout"
+    value = "5m"
   }
 
   dynamic "set" {
